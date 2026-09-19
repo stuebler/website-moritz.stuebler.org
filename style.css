@@ -1,4 +1,3 @@
-```css !important
 /* ========================================
    Allgemeine Einstellungen
    ======================================== */
@@ -33,27 +32,23 @@ body {
    ======================================== */
 
 body.page-root {
-    background-image: url("https://stuebler.github.io/website-stuebler.org
-/background.jpg");
+    background-image: url("https://moritz.stuebler.org/urlaub-neusiedler-see/background.jpg");
 }
 
 body.page-georg {
-    background-image: url("https://stuebler.github.io/website-georg.stuebler.org
-/background.jpg");
+    background-image: url("https://moritz.stuebler.org/urlaub-neusiedler-see/background.jpg");
 }
 
 body.page-sabine {
-    background-image: url("https://stuebler.github.io/website-sabine.stuebler.org
-/background.jpg");
+    background-image: url("https://moritz.stuebler.org/urlaub-neusiedler-see/background.jpg");
 }
 
 body.page-moritz {
-    background-image: url("https://stuebler.github.io/website-moritz.stuebler.org
-/background.jpg");
+    background-image: url("https://moritz.stuebler.org/urlaub-neusiedler-see/background.jpg");
 }
 
 body.page-urlaub-neusiedler-see {
-    background-image: url("https://stuebler.github.io/website-moritz.stuebler.org/urlaub-neusiedler-see/background.jpg");
+    background-image: url("https://moritz.stuebler.org/urlaub-neusiedler-see/background.jpg");
 }
 
 /* ========================================
