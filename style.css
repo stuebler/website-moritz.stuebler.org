@@ -1,0 +1,809 @@
+```css !important
+/* ========================================
+   Allgemeine Einstellungen
+   ======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+
+    font-family: Arial, Helvetica, sans-serif;
+    color: #222;
+
+    background-color: #000;
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+
+    min-height: 100vh;
+}
+
+
+/* ========================================
+   Seiten-Hintergründe
+   ======================================== */
+
+body.page-root {
+    background-image: url("https://stuebler.github.io/website-stuebler.org
+/background.jpg");
+}
+
+body.page-georg {
+    background-image: url("https://stuebler.github.io/website-georg.stuebler.org
+/background.jpg");
+}
+
+body.page-sabine {
+    background-image: url("https://stuebler.github.io/website-sabine.stuebler.org
+/background.jpg");
+}
+
+body.page-moritz {
+    background-image: url("https://stuebler.github.io/website-moritz.stuebler.org
+/background.jpg");
+}
+
+body.page-urlaub-neusiedler-see {
+    background-image: url("https://stuebler.github.io/website-moritz.stuebler.org/urlaub-neusiedler-see/background.jpg");
+}
+
+/* ========================================
+   Hintergrund-Abdunklung
+   ======================================== */
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    z-index: -1;
+
+    background: rgba(0, 0, 0, 0.12);
+
+    pointer-events: none;
+}
+
+/* ========================================
+   Header – Nur Text
+   ======================================== */
+
+header {
+    text-align: center;
+    padding: 50px 20px;
+    color: white;
+}
+
+header h1 {
+    font-size: 42px;
+    margin: 0 0 10px;
+}
+
+header p {
+    font-size: 22px;
+    margin: 0;
+}
+
+header a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* ========================================
+   Startseite – Grid
+   ======================================== */
+
+.grid {
+    max-width: 1200px;
+
+    margin: 40px auto;
+    padding: 20px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(260px, 1fr));
+
+    gap: 25px;
+}
+
+
+/* ========================================
+   Startseite – Liquid Glass Karten
+   ======================================== */
+
+.card {
+    position: relative;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.22),
+            rgba(255, 255, 255, 0.07)
+        );
+
+    backdrop-filter:
+        blur(14px)
+        saturate(160%);
+
+    -webkit-backdrop-filter:
+        blur(14px)
+        saturate(160%);
+
+    border: 1px solid rgba(255, 255, 255, 0.32);
+
+    border-radius: 22px;
+
+    padding: 25px;
+
+    text-decoration: none;
+
+    color: white;
+
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.38),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+
+/* ========================================
+   Glas-Lichtkante
+   ======================================== */
+
+.card::before,
+.big-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.85),
+            transparent
+        );
+
+    opacity: 0.8;
+}
+
+
+/* ========================================
+   Zusätzliche Glasreflexion
+   ======================================== */
+
+.card::after,
+.big-card::after {
+    content: "";
+
+    position: absolute;
+
+    top: -20%;
+    left: -10%;
+
+    width: 120%;
+    height: 45%;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.10),
+            rgba(255, 255, 255, 0)
+        );
+
+    transform: rotate(-2deg);
+
+    pointer-events: none;
+}
+
+
+/* ========================================
+   Karten Hover
+   ======================================== */
+
+.card:hover {
+    transform: translateY(-6px);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.28),
+            rgba(255, 255, 255, 0.09)
+        );
+
+    box-shadow:
+        0 14px 40px rgba(0, 0, 0, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.50),
+        0 0 25px rgba(255, 255, 255, 0.08);
+}
+
+.icon {
+    font-size: 45px;
+}
+
+.card h2 {
+    margin: 15px 0 10px;
+}
+
+.card p {
+    line-height: 1.5;
+}
+
+
+/* ========================================
+   Privater Bereich
+   ======================================== */
+
+.private {
+    border: 1px solid rgba(212, 160, 23, 0.65);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 235, 160, 0.18),
+            rgba(255, 255, 255, 0.07)
+        );
+}
+
+
+/* ========================================
+   Footer
+   ======================================== */
+
+footer {
+    text-align: center;
+
+    padding: 30px;
+
+    color: rgba(255, 255, 255, 0.9);
+
+    text-shadow:
+        0 1px 5px rgba(0, 0, 0, 0.35);
+}
+
+
+/* ========================================
+   Große Inhaltskarten
+   ======================================== */
+
+.big-content {
+    max-width: 900px;
+
+    margin: 40px auto;
+    padding: 20px;
+
+    display: grid;
+
+    gap: 25px;
+}
+
+.big-card {
+    position: relative;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.22),
+            rgba(255, 255, 255, 0.07)
+        );
+
+    backdrop-filter:
+        blur(14px)
+        saturate(160%);
+
+    -webkit-backdrop-filter:
+        blur(14px)
+        saturate(160%);
+
+    border: 1px solid rgba(255, 255, 255, 0.32);
+
+    border-radius: 22px;
+
+    padding: 30px;
+
+    color: white;
+
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.38),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+
+    overflow: hidden;
+}
+
+.big-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.big-card h2 {
+    margin: 5px 0 15px;
+}
+
+.big-card p {
+    line-height: 1.6;
+}
+
+.big-card ul {
+    padding-left: 25px;
+    line-height: 1.8;
+}
+
+
+/* ========================================
+   Links in Inhaltskarten
+   ======================================== */
+
+.big-card p a {
+    color: white;
+
+    font-weight: bold;
+    text-decoration: none;
+
+    transition:
+        opacity 0.2s,
+        text-shadow 0.2s;
+}
+
+.big-card p a:hover {
+    text-decoration: underline;
+    opacity: 0.75;
+
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+
+/* ========================================
+   Buttons – Liquid Glass
+   ======================================== */
+
+.big-card .button,
+.connection-controls button,
+.copy-button {
+    display: inline-block;
+
+    padding: 12px 20px;
+
+    border-radius: 20px;
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.22),
+            rgba(255, 255, 255, 0.08)
+        );
+
+    backdrop-filter:
+        blur(12px)
+        saturate(160%);
+
+    -webkit-backdrop-filter:
+        blur(12px)
+        saturate(160%);
+
+    color: white;
+
+    font-weight: bold;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.big-card .button:hover,
+.connection-controls button:hover,
+.copy-button:hover {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.32),
+            rgba(255, 255, 255, 0.12)
+        );
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45),
+        0 0 18px rgba(255, 255, 255, 0.08);
+}
+
+
+/* ========================================
+   YAML-Code
+   ======================================== */
+
+.code-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 20px;
+
+    padding: 10px 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.20),
+            rgba(255, 255, 255, 0.07)
+        );
+
+    backdrop-filter:
+        blur(12px)
+        saturate(160%);
+
+    -webkit-backdrop-filter:
+        blur(12px)
+        saturate(160%);
+
+    color: white;
+
+    border: 1px solid rgba(255, 255, 255, 0.28);
+
+    border-radius: 14px 14px 0 0;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.code-header span {
+    font-weight: bold;
+}
+
+.copy-button {
+    padding: 8px 14px;
+
+    background:
+        rgba(255, 255, 255, 0.15);
+
+    color: white;
+}
+
+.copy-button:hover {
+    background:
+        rgba(255, 255, 255, 0.25);
+}
+
+.big-card pre {
+    margin: 0;
+
+    padding: 20px;
+
+    background:
+        rgba(0, 0, 0, 0.25);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255, 255, 255, 0.22);
+
+    border-top: none;
+
+    border-radius: 0 0 14px 14px;
+
+    overflow-x: auto;
+
+    line-height: 1.5;
+
+    font-family:
+        Consolas,
+        "Courier New",
+        monospace;
+
+    font-size: 14px;
+
+    color: rgba(255, 255, 255, 0.95);
+}
+
+
+/* ========================================
+   Interessen
+   ======================================== */
+
+.interests {
+    list-style: none;
+
+    padding-left: 0 !important;
+}
+
+.interests li {
+    background:
+        rgba(255, 255, 255, 0.12);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    padding: 10px 14px;
+
+    margin-bottom: 8px;
+
+    border-radius: 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+
+/* ========================================
+   Fotogalerie
+   ======================================== */
+
+.photo-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 15px;
+
+    margin-top: 20px;
+}
+
+.photo-grid img {
+    width: 100%;
+    height: 220px;
+
+    object-fit: cover;
+
+    border-radius: 14px;
+
+    display: block;
+
+    border: 1px solid rgba(255, 255, 255, 0.5);
+
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.photo-grid figure {
+    margin: 0;
+}
+
+.photo-grid figcaption {
+    margin-top: 8px;
+
+    padding: 0 4px;
+
+    font-size: 14px;
+
+    line-height: 1.4;
+
+    color: white;
+
+    text-shadow:
+        0 1px 5px rgba(0, 0, 0, 0.4);
+}
+
+
+/* ========================================
+   Iframe
+   ======================================== */
+
+.connection-player {
+    width: 100%;
+
+    height: 600px;
+
+    margin-top: 20px;
+
+    overflow: hidden;
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(255, 255, 255, 0.45);
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.18);
+}
+
+.connection-player iframe {
+    width: 100%;
+    height: 100%;
+
+    border: 0;
+}/* ========================================
+   Iframe-Steuerung
+   ======================================== */
+
+.connection-controls {
+    margin-top: 15px;
+}
+
+.connection-controls button {
+    padding: 12px 20px;
+}
+
+
+/* ========================================
+   Kino-Modus
+   ======================================== */
+
+.connection-card.theater-mode {
+    position: fixed;
+
+    z-index: 9999;
+
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    max-width: none;
+
+    margin: 0;
+    padding: 0;
+
+    border-radius: 0;
+
+    overflow: hidden;
+
+    background: #000;
+}
+
+.connection-card.theater-mode .big-icon,
+.connection-card.theater-mode h2 {
+    display: none;
+}
+
+.connection-card.theater-mode .connection-player {
+    width: 100%;
+    height: 100vh;
+
+    margin: 0;
+
+    aspect-ratio: auto;
+
+    border-radius: 0;
+
+    border: none;
+}
+
+.connection-card.theater-mode .connection-controls {
+    position: fixed;
+
+    z-index: 10000;
+
+    right: 20px;
+    bottom: 20px;
+
+    margin: 0;
+}
+
+.connection-card.theater-mode .connection-controls button {
+    opacity: 0.85;
+}
+
+.connection-card.theater-mode .connection-controls button:hover {
+    opacity: 1;
+}
+
+
+/* ========================================
+   Handy-Optimierung
+   ======================================== */
+
+@media (max-width: 600px) {
+
+    /* Header */
+
+    header {
+        padding: 35px 15px;
+    }
+
+    header h1 {
+        font-size: 32px;
+    }
+
+    header p {
+        font-size: 18px;
+    }
+
+
+    /* Startseite */
+
+    .grid {
+        margin: 15px auto;
+
+        padding: 15px;
+
+        gap: 15px;
+    }
+
+    .card {
+        padding: 20px;
+
+        border-radius: 20px;
+    }
+
+
+    /* Große Inhaltskarten */
+
+    .big-content {
+        margin: 15px auto;
+
+        padding: 15px;
+
+        gap: 15px;
+    }
+
+    .big-card {
+        padding: 22px;
+
+        border-radius: 20px;
+    }
+
+    .big-icon {
+        font-size: 42px;
+    }
+
+
+    /* Fotogalerie */
+
+    .photo-grid {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
+    .photo-grid img {
+        height: auto;
+
+        max-height: 400px;
+    }
+
+
+    /* Code */
+
+    .big-card pre {
+        font-size: 13px;
+
+        padding: 15px;
+    }
+
+    /* Iframe */
+
+    .connection-player {
+        height: 500px;
+    }
+
+}
