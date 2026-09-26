@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Docker – Moritz Stübler</title>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="https://assets.stuebler.org/style.css?v=2">
+    <!-- Icons -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<script>
+
+function copyhadockercompose() {
+    const yaml = document.getElementById("hadockercompose").innerText;
+    const button = event.target;
+
+    navigator.clipboard.writeText(yaml).then(() => {
+        button.textContent = "✓ Kopiert!";
+
+        setTimeout(() => {
+            button.textContent = "📋 Erneut kopieren";
+        }, 2000);
+    });
+}
+
+function copyphdockercompose() {
+    const yaml = document.getElementById("phdockercompose").innerText;
+    const button = event.target;
+
+    navigator.clipboard.writeText(yaml).then(() => {
+        button.textContent = "✓ Kopiert!";
+
+        setTimeout(() => {
+            button.textContent = "📋 Erneut kopieren";
+        }, 2000);
+    });
+}
+
+</script>
+
+<body class="page-moritz">
+
+<header class="navbar">
+  <div class="nav-left">
+
+    <a href="https://stuebler.org" class="nav-item">
+      <i class="fa-solid fa-user"></i>
+      <span>Personen</span>
+    </a>
+
+    <a href="/" class="nav-item">
+      <i class="fa-solid fa-home"></i>
+      <span>Home - Moritz</span>
+    </a>
+
+    <a href="/projekte" class="nav-item">
+      <i class="fa-solid fa-diagram-project"></i>
+      <span>Projekte</span>
+    </a>
+  </div>
+
+  <a class="button" href="https://privat.stuebler.org">Login</a>
+</header>
+<header class="page-header">
+    <h1>Umstieg auf Docker</h1>
+    <p>Projekt von Moritz Stübler</p>
+</header>
+
+<main class="big-content">
+
+
+<section class="big-card">
+
+    <div class="big-icon">🐋</div>
+
+    <h2>Über das Projekt</h2>
+
+    <p>
+        2026 bin ich von 
+        <a href="https://casaos.zimaspace.com/" target="_blank" rel="noopener"> CasaOS</a>
+        zu 
+        <a href="https://www.docker.com/" target="_blank" rel="noopener"> Docker</a>
+        umgestiegen. CasaOS bietet ein einfaches AppStore Design wie am SmartPhone, wobei man bei Docker eigene Dateien (docker-compose.yml) braucht, so gesehen ist Docker die fortgeschritterne Variante. Allerdings habe ich, um den Überblick zu behalten, eine Weboberfläche namens 
+        <a href="https://www.portainer.io/" target="_blank" rel="noopener"> Portainer </a>
+        installiert. Ich habe bereits mit Cloudflare Tunneln (besonders bei dem 
+        <a href="/projekte/openwebrx" target="_blank" rel="noopener"> OpenWebRX</a> 
+        oder 
+        <a href="/projekte/satdump" target="_blank" rel="noopener"> SatDump</a> Auftrag)
+        experimentiert um ein Gerät zuhause im Internet zugänglich zu machen.
+    </p>
+
+</section>
+
+
+<section class="big-card">
+
+    <div class="big-icon">📸</div>
+
+    <h2>Galerie</h2>
+
+    <div class="photo-grid">
+
+        <figure>
+            <img src="portainer.png" alt="Portainer Weboberfläche">
+            <figcaption>
+                Die Containerliste auf der Portainer Weboberfläche
+            </figcaption>
+        </figure>
+
+    </div>
+
+</section>
+
+
+<section class="big-card">
+
+    <div class="big-icon">&lt;/&gt;</div>
+
+    <h2>Dieses Home Assistant Docker Compose nutze ich:</h2>
+
+    <p>
+        <strong>
+            Kopieren und wiederverwenden erlaubt, es müssen aber möglicherweise Details ersetzt werden.
+        </strong>
+    </p>
+
+    <div class="code-header">
+        <span>YAML</span>
+
+        <button class="copy-button" onclick="copyhadockercompose()">
+            📋 Kopieren
+        </button>
+    </div>
+
+    <pre><code id="hadockercompose">services:
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: Home-Assistant
+    privileged: true
+    mem_limit: 8g
+    cpu_shares: 768
+    healthcheck:
+      test: curl -f http://localhost:8123/ || exit 1
+    network_mode: host
+    volumes:
+      - /volume1/docker/homeassistant:/config:rw
+      - /var/run/dbus:/var/run/dbus:ro
+    environment:
+      TZ: Europe/Vienna
+    restart: on-failure:5
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW</code></pre>
+
+</section>
+
+
+<section class="big-card">
+
+    <div class="big-icon">&lt;/&gt;</div>
+
+    <h2>Dieses PiHole Docker Compose nutze ich:</h2>
+
+    <p>
+        <strong>
+            Kopieren und wiederverwenden erlaubt, es müssen aber möglicherweise Details ersetzt werden.
+        </strong>
+    </p>
+
+    <div class="code-header">
+        <span>YAML</span>
+
+        <button class="copy-button" onclick="copyphdockercompose()">
+            📋 Kopieren
+        </button>
+    </div>
+
+    <pre><code id="phdockercompose">services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    hostname: pihole
+    restart: unless-stopped
+
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80/tcp"
+
+    volumes:
+      - ./etc-pihole:/etc/pihole
+      - ./etc-dnsmasq.d:/etc/dnsmasq.d
+
+    cap_add:
+      - NET_ADMIN</code></pre>
+
+</section>
+
+
+</main>
+
+<footer>
+    © Familie Stübler ausgenommen Home Assistant und PiHole docker-compose.yml
+</footer>
+
+</body>
+
+</html>

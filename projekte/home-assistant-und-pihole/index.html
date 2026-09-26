@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>HA&PH – Moritz Stübler</title>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="https://assets.stuebler.org/style.css?v=2">
+    <!-- Icons -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<script>
+function copyYaml() {
+    const yaml = document.getElementById("yaml-code").innerText;
+
+    navigator.clipboard.writeText(yaml).then(() => {
+        const button = document.querySelector(".copy-button");
+
+        button.textContent = "✓ Kopiert!";
+
+        setTimeout(() => {
+            button.textContent = "📋 Erneut kopieren";
+        }, 2000);
+    });
+}
+</script>
+
+<body class="page-moritz">
+
+<header class="navbar">
+  <div class="nav-left">
+
+    <a href="https://stuebler.org" class="nav-item">
+      <i class="fa-solid fa-user"></i>
+      <span>Personen</span>
+    </a>
+
+    <a href="/" class="nav-item">
+      <i class="fa-solid fa-home"></i>
+      <span>Home - Moritz</span>
+    </a>
+    <a href="/projekte" class="nav-item">
+      <i class="fa-solid fa-diagram-project"></i>
+      <span>Projekte</span>
+    </a>
+  </div>
+
+  <a class="button" href="https://privat.stuebler.org">Login</a>
+</header>
+<header class="page-header">
+    <h1>Home Assistant und PiHole</h1>
+    <p>Projekt von Moritz Stübler</p>
+</header>
+
+<main class="big-content">
+
+
+<section class="big-card">
+
+    <div class="big-icon">🏠&🛡️</div>
+    <h2>Über das Projekt</h2>
+    <p>
+        Ich habe 
+        <a href="https://www.home-assistant.io/" target="_blank" rel="noopener"> Home Assistant </a>
+         und 
+         <a href="https://www.pi-hole.net/" target="_blank" rel="noopener"> PiHole </a>
+          installiert und mit 
+         <a href="https://www.tailscale.com/" target="_blank" rel="noopener"> Tailscale </a>
+          von überall aus zugänglich gemacht. Bei HA habe ich einige Automationen wie eine Erinnerung, ein Fenster oder eine Tür zu schließen, eingerichtet. Ganz unten auf dieser Seite habe ich ein Bespiel eingefügt (kopieren und wiederverwenden erwünscht, es müssen aber die Geräte ersetzt werden), in der es darum geht, dass die Haustür im Winter nicht lange offen bleiben darf, deshalb wird zuerst nach 5 Sekunden eine Warnung von einem Lautsprecher ertönen, und nach weiteren Minuten (abhängig von der Temperatur) eine Aufforderung an diejenige Person gesendet, die gerade zuhause ist. Wenn keine Person zuhause ist, wird ein Alarm an alle Handys gesendet. Ich habe auch einen Alarm in der Küche eingerichtet, der ertönt wenn ein Fenster geöffnet wird, wenn niemand zuhause ist, was aber häufig Fehlalarme gab, wenn jemand nachhause gekommen ist und die Haustüre geöffnet hat, da das GPS der Handys nicht ständig aktualisiert, deswegen wurde die Haustüre aus der Automation herausgenommen. 
+    </p><p>
+        In PiHole habe einige blockierte Webseiten konfiguirt, und durch Tailscale waren diese überall blockiert. Als Bespiel: Ich habe amazon.de zur Sperrliste hinzugefügt, und danach konnte kein Gerät mehr amazon.de aufrufen. Der Nachteil bei Tailscale ist, dass der Fernzugriff leicht zu deaktivieren ist und sich der Fernzugriff bei Neustart automatisch deaktiviert.
+    </p>
+<!--
+    <a class="button" href="https://connection01.stuebler.org">
+        Zur Weboberfläche →
+    </a>
+-->
+</section>
+
+<section class="big-card">
+    <div class="big-icon">📸</div>
+    <h2>Galerie</h2>
+    <div class="photo-grid">
+        <figure>
+            <img src="blaue_tuer.png" alt="Blaue Tür">
+            <figcaption>
+                Erinnerung, die Haustüre zu schließen.
+            </figcaption>
+        </figure>
+        <figure>
+            <img src="amazon.de.png" alt="Amazon.de auf der Blacklist">
+            <figcaption>
+                Ich habe amazon.de für alle Geräte blockiert.
+            </figcaption>
+        </figure>
+</div>
+</section>
+
+<section class="big-card">
+
+    <div class="big-icon">&lt;/&gt;</div>
+
+    <h2>Haustür-Automation in yaml-Code</h2>
+
+    <p>
+        <strong>
+            Kopieren und wiederverwenden erlaubt, es müssen aber die Geräte ersetzt werden.
+        </strong>
+    </p>
+
+    <div class="code-header">
+        <span>YAML</span>
+        <button class="copy-button" onclick="copyYaml()">
+            📋 Kopieren
+        </button>
+    </div>
+
+    <pre><code id="yaml-code">alias: Blaue Tür
+description: ""
+triggers:
+  - type: opened
+    device_id: e596e341747b5146926a86b7c458b08f
+    entity_id: d8fed0b21155c08dc97c98ca79113988
+    domain: binary_sensor
+    trigger: device
+
+conditions:
+  - condition: or
+    conditions:
+      - condition: zone
+        entity_id: person.sabine
+        zone: zone.home
+      - condition: zone
+        entity_id: person.georg
+        zone: zone.home
+      - condition: zone
+        entity_id: person.moritz_stubler
+        zone: zone.home
+    enabled: false
+
+  - condition: and
+    conditions:
+      - condition: state
+        entity_id: input_select.alarmzentrale
+        state:
+          - Zuhause
+          - Aus
+      - condition: state
+        entity_id: input_boolean.fensteralarme
+        state:
+          - "on"
+
+actions:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+    enabled: true
+
+  - if:
+      - type: is_open
+        condition: device
+        device_id: e596e341747b5146926a86b7c458b08f
+        entity_id: d8fed0b21155c08dc97c98ca79113988
+        domain: binary_sensor
+
+    then:
+      - action: alexa_devices.send_text_command
+        metadata: {}
+        data:
+          device_id: f384a8521986ca52bddbd3ab8dda7fe1
+          text_command: 'Sprich mir nach: "Blaue Tür offen"'
+
+      - choose:
+          - conditions:
+              - condition: numeric_state
+                entity_id: weather.home
+                attribute: temperature
+                below: 0
+
+            sequence:
+              - delay:
+                  hours: 0
+                  minutes: 4
+                  seconds: 55
+                  milliseconds: 0
+
+              - if:
+                  - type: is_open
+                    condition: device
+                    device_id: e596e341747b5146926a86b7c458b08f
+                    entity_id: d8fed0b21155c08dc97c98ca79113988
+                    domain: binary_sensor
+
+                then:
+                  - if:
+                      - condition: state
+                        entity_id: person.sabine
+                        state:
+                          - home
+
+                    then:
+                      - action: notify.mobile_app_sm_a528b
+                        metadata: {}
+                        data:
+                          message: Blaue Tür seit 5 Minuten geöffnet
+                          title: Bitte Tür schließen!
+                          data:
+                            channel: Fenster
+
+                    else:
+                      - if:
+                          - condition: state
+                            entity_id: person.georg
+                            state:
+                              - home
+
+                        then:
+                          - action: notify.mobile_app_sm_a505fn
+                            metadata: {}
+                            data:
+                              message: Blaue Tür seit 5 Minuten geöffnet
+                              title: Bitte Tür schließen!
+                              data:
+                                channel: Fenster
+
+                        else:
+                          - if:
+                              - condition: state
+                                entity_id: person.moritz_stubler
+                                state:
+                                  - home
+
+                            then:
+                              - action: notify.mobile_app_sm_a145r
+                                metadata: {}
+                                data:
+                                  message: Blaue Tür seit 5 Minuten geöffnet
+                                  title: Bitte Tür schließen!
+                                  data:
+                                    channel: Fenster
+
+                            else:
+                              - action: notify.mobile_app_sm_a145r
+                                metadata: {}
+                                data:
+                                  message: >-
+                                    Dein Smart Home hat registriert, dass du
+                                    vergessen hast, die blaue Türe zu schließen
+                                  title: Warnung Stufe 2
+                                  data:
+                                    channel: Warnung Stufe 2
+
+                              - action: notify.mobile_app_sm_a505fn
+                                metadata: {}
+                                data:
+                                  message: >-
+                                    Dein Smart Home hat registriert, dass du
+                                    vergessen hast, die blaue Türe zu schließen
+                                  title: Warnung Stufe 2
+                                  data:
+                                    channel: Warnung Stufe 2
+
+                              - action: notify.mobile_app_sm_a528b
+                                metadata: {}
+                                data:
+                                  message: >-
+                                    Dein Smart Home hat registriert, dass du
+                                    vergessen hast, die blaue Türe zu schließen
+                                  title: Warnung Stufe 2
+                                  data:
+                                    channel: Warnung Stufe 2
+
+                else:
+                  - stop: Blaue Tür bereits geschlossen
+
+          - conditions:
+              - condition: numeric_state
+                entity_id: weather.home
+                attribute: temperature
+                above: 0
+
+            sequence:
+              - delay:
+                  hours: 0
+                  minutes: 9
+                  seconds: 55
+                  milliseconds: 0
+
+              - if:
+                  - type: is_open
+                    condition: device
+                    device_id: e596e341747b5146926a86b7c458b08f
+                    entity_id: d8fed0b21155c08dc97c98ca79113988
+                    domain: binary_sensor
+
+                then:
+                  - if:
+                      - condition: state
+                        entity_id: person.sabine
+                        state:
+                          - home
+
+                    then:
+                      - action: notify.mobile_app_sm_a528b
+                        metadata: {}
+                        data:
+                          message: Blaue Tür seit 10 Minuten geöffnet
+                          title: Bitte Tür schließen!
+                          data:
+                            channel: Fenster
+
+                    else:
+                      - if:
+                          - condition: state
+                            entity_id: person.georg
+                            state:
+                              - home
+
+                        then:
+                          - action: notify.mobile_app_sm_a505fn
+                            metadata: {}
+                            data:
+                              message: Blaue Tür seit 10 Minuten geöffnet
+                              title: Bitte Tür schließen!
+                              data:
+                                channel: Fenster
+
+                        else:
+                          - if:
+                              - condition: state
+                                entity_id: person.moritz_stubler
+                                state:
+                                  - home
+
+                            then:
+                              - action: notify.mobile_app_sm_a145r
+                                metadata: {}
+                                data:
+                                  message: Blaue Tür seit 10 Minuten geöffnet
+                                  title: Bitte Tür schließen!
+                                  data:
+                                    channel: Fenster
+
+                            else:
+                              - action: notify.mobile_app_sm_a145r
+                                metadata: {}
+                                data:
+                                  message: >-
+                                    Dein Smart Home hat registriert, dass du
+                                    vergessen hast, die blaue Türe zu schließen
+                                  title: Warnung Stufe 2
+                                  data:
+                                    channel: Warnung Stufe 2
+
+                              - action: notify.mobile_app_sm_a505fn
+                                metadata: {}
+                                data:
+                                  message: >-
+                                    Dein Smart Home hat registriert, dass du
+                                    vergessen hast, die blaue Türe zu schließen
+                                  title: Warnung Stufe 2
+                                  data:
+                                    channel: Warnung Stufe 2
+
+                              - action: notify.mobile_app_sm_a528b
+                                metadata: {}
+                                data:
+                                  message: >-
+                                    Dein Smart Home hat registriert, dass du
+                                    vergessen hast, die blaue Türe zu schließen
+                                  title: Warnung Stufe 2
+                                  data:
+                                    channel: Warnung Stufe 2
+
+                else:
+                  - stop: Blaue Tür bereits geschlossen
+
+    else:
+      - stop: Blaue Tür bereits geschlossen
+
+mode: single</code></pre>
+
+</section></main>
+<footer>
+    © Familie Stübler ausgenommen Home Assistant Haustür Automation (blaue_tuer.yaml)
+</footer>
+</body>
+</html>
