@@ -1,91 +1,159 @@
 <!DOCTYPE html>
+
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webseite in Planung</title>
+    <title>Über mich – Moritz Stübler</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="https://assets.stuebler.org/style.css?v=2">
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f6f8;
-            color: #1f2937;
-            text-align: center;
-        }
-
-        .container {
-            max-width: 650px;
-            padding: 40px 25px;
-        }
-
-        .icon {
-            font-size: 80px;
-            margin-bottom: 25px;
-        }
-
-        h1 {
-            font-size: 42px;
-            margin-bottom: 18px;
-        }
-
-        p {
-            font-size: 18px;
-            line-height: 1.6;
-            color: #6b7280;
-        }
-
-        .notice {
-            margin-top: 30px;
-            padding: 15px 20px;
-            border-radius: 10px;
-            background: white;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            font-size: 15px;
-            color: #4b5563;
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 32px;
-            }
-
-            .icon {
-                font-size: 65px;
-            }
-
-            p {
-                font-size: 16px;
-            }
-        }
-    </style>
+    <!-- Icons -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
-<body>
+<body class="page-moritz">
 
-    <main class="container">
-        <div class="icon">🚧</div>
+<header class="navbar">
+  <div class="nav-left">
 
-        <h1>Webseite in Planung</h1>
+    <a href="https://stuebler.org" class="nav-item">
+      <i class="fa-solid fa-user"></i>
+      <span>Personen</span>
+    </a>
+
+    <a href="/" class="nav-item">
+      <i class="fa-solid fa-home"></i>
+      <span>Home - Moritz</span>
+    </a>
+  </div>
+
+  <a class="button" href="https://privat.stuebler.org">Login</a>
+</header>
+
+<header class="page-header">
+    <h1>Moritz Stübler</h1>
+    <p>Über mich</p>
+</header>
+
+<main class="big-content">
+
+    <section class="big-card">
+
+        <div class="big-icon">🏠</div>
+
+        <h2>Smart Home & Home Assistant</h2>
 
         <p>
-            Diese Webseite befindet sich derzeit noch im Aufbau
-            und ist momentan nicht aufrufbar.
+            Ich beschäftige mich mit Smart Home und Automatisierung.
+            Dabei nutze ich <strong>Home Assistant</strong>, um verschiedene
+            Geräte und Systeme zentral zu steuern und miteinander zu verbinden.
         </p>
 
-        <div class="notice">
-            Bitte schauen Sie später wieder vorbei.
-        </div>
-    </main>
+        <ul>
+            <li>🏠 Home Assistant</li>
+            <li>💡 Automatisierungen und Smart-Home-Geräte</li>
+            <li>🌐 Cloudflare für sicheren Fernzugriff</li>
+        </ul>
+
+        <a class="button" href="/projekte/home-assistant-und-pihole" target="_blank" rel="noopener">
+            Zum Projekt  →
+        </a>
+
+    </section>
+
+
+    <section class="big-card">
+
+        <div class="big-icon">🖥️</div>
+
+        <h2>Server & Homelab</h2>
+
+        <p>
+            Ich betreibe und plane verschiedene Server und Dienste in meinem
+            eigenen Netzwerk. Dabei beschäftige ich mich mit
+            <strong>Docker, Proxmox, und Netzwerken</strong>.
+        </p>
+
+        <p>
+            Zu meinen Projekten gehören unter anderem Home-Server,
+            Container, Netzwerkdienste, Home Assistant, PiHole, Minecraft, und vieles mehr
+        </p>
+
+        <!--<a class="button" href="/projekte/neuaufbau-netzwerk" target="_blank" rel="noopener">
+            Zum Projekt →
+        </a>-->
+
+    </section>
+
+    <section class="big-card">
+
+        <div class="big-icon">⛏️</div>
+
+        <h2>Minecraft & Serverentwicklung</h2>
+
+        <p>
+            Ich betreibe einen eigenen Minecraft-Server und beschäftige
+            mich mit dessen technischer Planung und Administration.
+        </p>
+
+        <ul>
+            <li>⛏️ Paper Minecraft-Server</li>
+            <li>🔐 LuckPerms und Serververwaltung</li>
+            <!--<li>🌐 Proxy- und Netzwerkplanung</li>-->
+            <li>🏙️ Eigene Stadt</li>
+        </ul>
+        <a class="button" href="https://mc.stuebler.org" target="_blank" rel="noopener">
+            Zur City → </a>
+        <p>(das Ansehen der City funktioniert auch ohne das Spiel "Minecraft", zum Beispiel direkt auf der Webseite)</p>
+
+
+
+    </section>
+
+    <section class="big-card">
+
+        <div class="big-icon">🌐</div>
+
+        <h2>Webentwicklung</h2>
+
+        <p>
+            Ich entwickle und betreue verschiedene Webseiten für mich
+            und meine Familie. Dabei arbeite ich unter anderem mit
+            <strong>HTML, CSS, JavaScript, GitHub Pages und Cloudflare</strong>.
+        </p>
+
+        <p>
+            Ein besonderer Schwerpunkt liegt auf Kachel-Designs,
+            eigenen Webseiten und der technischen Infrastruktur dahinter.
+        </p>
+
+    </section>
+
+
+
+    <section class="big-card">
+
+        <div class="big-icon">💡</div>
+
+        <h2>Was mich interessiert</h2>
+
+        <ul class="enumeration-blocks">
+            <li>🏠 Smart Home und Home Assistant</li>
+            <li>🖥️ Server, Docker und Proxmox</li>
+            <li>🌐 Netzwerke und Webentwicklung</li>
+            <li>⛏️ Minecraft und Serverentwicklung</li>
+            <li>🔧 Technik und Computer</li>
+        </ul>
+
+    </section>
+
+</main>
+
+<footer>
+    © Familie Stübler | generiert von OpenAI ChatGPT
+</footer>
 
 </body>
 </html>
